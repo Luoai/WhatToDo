@@ -6,6 +6,8 @@ import android.database.Cursor;
 import android.content.Context;
 import android.content.ContentValues;
 
+
+// hahahaha
 public class MyEventDBHandler extends SQLiteOpenHelper{
 
     private static final int DATABASE_VERSION = 1;
