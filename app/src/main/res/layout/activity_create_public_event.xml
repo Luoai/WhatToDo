@@ -57,7 +57,7 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="@string/title_eventStartTimre"
         android:id="@+id/title_startTime"
-        android:layout_centerVertical="true"
+        android:layout_below="@+id/Loc_Spinner"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
@@ -78,11 +78,9 @@
         android:clickable="true"
         android:text="@string/init_setTime"
         android:onClick="onStartTimeClick"
-        android:layout_below="@+id/title_startTime"
+        android:layout_alignTop="@+id/end_time"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignRight="@+id/title_startTime"
-        android:layout_alignEnd="@+id/title_startTime" />
+        android:layout_alignParentStart="true" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -95,19 +93,6 @@
         android:layout_alignStart="@+id/textView"
         android:layout_alignRight="@+id/textView"
         android:layout_alignEnd="@+id/textView" />
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/date"
-        android:text="@string/init_date"
-        android:digits="1234567890/"
-        android:onClick="onDateClick"
-        android:clickable="true"
-        android:contextClickable="true"
-        android:layout_below="@+id/dateTitle"
-        android:layout_alignLeft="@+id/textView"
-        android:layout_alignStart="@+id/textView" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -137,8 +122,8 @@
         android:text="@string/date_title"
         android:id="@+id/dateTitle"
         android:layout_below="@+id/eventName"
-        android:layout_alignLeft="@+id/date"
-        android:layout_alignStart="@+id/date" />
+        android:layout_alignLeft="@+id/textView"
+        android:layout_alignStart="@+id/textView" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -159,6 +144,22 @@
         android:layout_alignParentStart="true"
         android:layout_alignRight="@+id/nextButton"
         android:layout_alignEnd="@+id/nextButton" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="@string/default_date"
+        android:id="@+id/date"
+        android:layout_below="@+id/dateTitle"
+        android:layout_alignLeft="@+id/dateTitle"
+        android:layout_alignStart="@+id/dateTitle"
+        android:layout_alignRight="@+id/eventName"
+        android:layout_alignEnd="@+id/eventName"
+        android:onClick="onDateClick"
+        android:shadowColor="#abdafa"
+        android:textColor="#3d7cf1"
+        android:layout_alignBottom="@+id/Loc_Spinner" />
 
 
 </RelativeLayout>

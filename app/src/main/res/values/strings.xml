@@ -10,11 +10,11 @@
     <string name="init_setTime">hh:mm</string>
     <string name="title_endTime">Event End Time</string>
     <string name="init_endTime">hh:mm</string>
-    <string name="init_date">mm/dd/yyyy</string>
     <string name="title_name">Event Name</string>
     <string name="title_description">Descrption</string>
-    <string name="date_title">Date</string>
+    <string name="date_title">Date:(CLICK TO SET)</string>
     <string name="title_descp">Descrption</string>
+    <string name="default_date">mm/dd/yyyy</string>
     <string-array name="LOCATIONS">
         <item>Burke</item>
         <item>Junker</item>

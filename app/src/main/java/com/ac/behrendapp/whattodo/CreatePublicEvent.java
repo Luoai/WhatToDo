@@ -20,7 +20,8 @@ import java.util.Calendar;
 public class CreatePublicEvent extends AppCompatActivity {
 
     private Spinner locSpinner;
-    private EditText nameET,dateET,startTimeET,endTimeET,desET;
+    private EditText nameET,startTimeET,endTimeET,desET;
+    private TextView dateET,ETstartTime,ETendTime;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,25 +42,27 @@ public class CreatePublicEvent extends AppCompatActivity {
     public void initialize(){
         locSpinner=(Spinner)findViewById(R.id.Loc_Spinner);
         nameET=(EditText)findViewById(R.id.eventName);
-        dateET=(EditText)findViewById(R.id.date);
+        //dateET=(EditText)findViewById(R.id.date);
         startTimeET=(EditText)findViewById(R.id.start_time);
         endTimeET=(EditText)findViewById(R.id.end_time);
         desET=(EditText)findViewById(R.id.des);
+        dateET=(TextView)findViewById(R.id.date);
     }
 
     //This function is to pop out a dialog to pick date when click on the text field of date
     public void onDateClick(View v) {
-        final EditText ET_dateTime = (EditText) findViewById(R.id.date);
+        final TextView ET_dateTime = (TextView) findViewById(R.id.date);
         if (v.getId() == R.id.date) {
             Calendar mcurrentDate = Calendar.getInstance();
             int mYear = mcurrentDate.get(Calendar.YEAR);
-            int mMonth = mcurrentDate.get(Calendar.MONTH)+1;
+            int mMonth = mcurrentDate.get(Calendar.MONTH);
             int mDay = mcurrentDate.get(Calendar.DAY_OF_MONTH);
 
             DatePickerDialog mDatePicker;
             mDatePicker = new DatePickerDialog(CreatePublicEvent.this, new DatePickerDialog.OnDateSetListener() {
                 public void onDateSet(DatePicker datepicker, int selectedyear, int selectedmonth, int selectedday) {
-                    ET_dateTime.setText("" + selectedday + "/" + selectedmonth + "/" + selectedyear);
+                    selectedmonth+=1;
+                    ET_dateTime.setText("" + selectedmonth + "/" + selectedday + "/" + selectedyear);
                 }
             }, mYear, mMonth, mDay);
             mDatePicker.setTitle("Select Date");
@@ -128,9 +131,7 @@ public class CreatePublicEvent extends AppCompatActivity {
             String des=desET.getText().toString();
 
 
-          //  if(correctName(name) && correctDate(date) &&
-            //        correctStartTime(startTime) && correctEndTime(startTime,endTime)){
-
+          /*
                         //Set up a new event by the input data
                         Event newEvent= new Event();
                         newEvent.setEName(name);
@@ -141,8 +142,12 @@ public class CreatePublicEvent extends AppCompatActivity {
                         newEvent.setDescription(des);
 
                         // Save event object into Database
-                       // EventDatabaseHelper dbHelper = new EventDatabaseHelper(this);
-                        //dbHelper.insertEvent(newEvent);
+                        MyEventDBHandler eventDBHandler;
+                        eventDBHandler = new MyEventDBHandler(this,null,null,1);
+                        eventDBHandler.addEvent(newEvent);
+                        */
+
+
 
 
 
