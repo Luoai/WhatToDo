@@ -40,7 +40,7 @@ public class MyEventDBHandler extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db){
         // When create, what you want to do here
         String query = "CREATE TABLE " + TABLE_EVENTS + "(" +
-                COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT " + //SQL will automatically genereate ID
+                COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + //SQL will automatically genereate ID
                 COLUMN_ENAME + "  TEXT, " +
                 COLUMN_ELOC + " TEXT, " +
                 COLUMN_EDATE + " TEXT, " +
@@ -118,7 +118,29 @@ public class MyEventDBHandler extends SQLiteOpenHelper {
         }
         db.close();
         return dbString;
+    }
+
+    //Print out the databaase as a string
+    public String getAllBurkeEvent(){
+        String dbString = "";
+        SQLiteDatabase db = getWritableDatabase();
+        String query = "SELECT * FROM " + TABLE_EVENTS +
+                " WHERE 1";
+
+        //Cursor point to a location in your results
+        Cursor c = db.rawQuery(query,null);
+        //Move to first row in your result
+        c.moveToFirst();
+
+        while(!c.isAfterLast()) {
+            if (c.getString(c.getColumnIndex("eventname")) != null) {
+                dbString += c.getString(c.getColumnIndex("eventname"));
+                dbString += "\n";
+            }
         }
+        db.close();
+        return dbString;
+    }
 
 }
 

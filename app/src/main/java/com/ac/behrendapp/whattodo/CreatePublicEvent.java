@@ -136,6 +136,10 @@ public class CreatePublicEvent extends AppCompatActivity {
             Event newEvent = new Event();
             newEvent=getEvent();
 
+            MyEventDBHandler eventDBHandler= new MyEventDBHandler(this,null,null,1);
+            eventDBHandler.addEvent(newEvent);
+
+
             textView=(TextView)findViewById(R.id.textView);
             textView.setText(newEvent.getEDate()+"\n" +
                         newEvent.getEYear() + " " +
@@ -192,7 +196,6 @@ public class CreatePublicEvent extends AppCompatActivity {
             e=null;
             return e;
         }
-        //
 
         //get startHour,startMin
         int startHour,startMin;
