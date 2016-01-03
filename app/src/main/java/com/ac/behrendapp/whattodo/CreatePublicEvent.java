@@ -26,7 +26,7 @@ import java.util.Calendar;
 public class CreatePublicEvent extends AppCompatActivity {
 
     private Spinner locSpinner;
-    private EditText nameET, startTimeET, endTimeET, desET;
+    private TextView nameET, startTimeET, endTimeET, desET;
     private TextView dateET, ETstartTime, ETendTime;
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
@@ -51,11 +51,11 @@ public class CreatePublicEvent extends AppCompatActivity {
     // This function is to initialize all the field variable and wait for input
     public void initialize() {
         locSpinner = (Spinner) findViewById(R.id.Loc_Spinner);
-        nameET = (EditText) findViewById(R.id.eventName);
+        nameET = (TextView) findViewById(R.id.eventName);
         //dateET=(EditText)findViewById(R.id.date);
-        startTimeET = (EditText) findViewById(R.id.start_time);
-        endTimeET = (EditText) findViewById(R.id.end_time);
-        desET = (EditText) findViewById(R.id.des);
+        startTimeET = (TextView) findViewById(R.id.start_time);
+        endTimeET = (TextView) findViewById(R.id.end_time);
+        desET = (TextView) findViewById(R.id.des);
         dateET = (TextView) findViewById(R.id.date);
     }
 
@@ -105,7 +105,7 @@ public class CreatePublicEvent extends AppCompatActivity {
 
     //This function is to pop out a dialog to pick time when click on the text field of EndTime
     public void onEndTimeClick(View v) {
-        final EditText ET_endTime = (EditText) findViewById(R.id.end_time);
+        final TextView ET_endTime = (TextView) findViewById(R.id.end_time);
         if (v.getId() == R.id.end_time) {
             Calendar currentTime = Calendar.getInstance();
             int curr_hour = currentTime.HOUR_OF_DAY;
