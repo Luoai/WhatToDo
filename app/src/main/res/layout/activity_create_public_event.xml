@@ -14,9 +14,7 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="@string/title_CreateNewEvent"
-        android:id="@+id/title_CreateNewEvent"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
+        android:id="@+id/title_CreateNewEvent" />
 
     <TextView
         android:layout_width="wrap_content"
