@@ -82,7 +82,7 @@ public class CreatePublicEvent extends AppCompatActivity {
 
     //This function is to pop out a dialog to pick time when click on the text field of StartTime
     public void onStartTimeClick(View v) {
-        final EditText ET_startTime = (EditText) findViewById(R.id.start_time);
+        final TextView ET_startTime = (TextView) findViewById(R.id.start_time);
         if (v.getId() == R.id.start_time) {
             Calendar currentTime = Calendar.getInstance();
             int curr_hour = currentTime.HOUR_OF_DAY;
