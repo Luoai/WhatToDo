@@ -23,7 +23,7 @@
         android:text="Event Location"
         android:id="@+id/title_loc"
 
-        android:layout_below="@+id/eventName"
+        android:layout_above="@+id/Loc_Spinner"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
@@ -43,7 +43,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/Loc_Spinner"
         android:spinnerMode="dropdown"
-        android:layout_below="@+id/title_loc"
+        android:layout_above="@+id/title_startTime"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_alignRight="@+id/title_startTime"
@@ -55,7 +55,7 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="@string/title_eventStartTimre"
         android:id="@+id/title_startTime"
-        android:layout_below="@+id/Loc_Spinner"
+        android:layout_alignTop="@+id/title_endTime"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
@@ -64,10 +64,10 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="@string/title_endTime"
-        android:id="@+id/textView"
-        android:layout_below="@+id/date"
-        android:layout_alignRight="@+id/nextButton"
-        android:layout_alignEnd="@+id/nextButton" />
+        android:id="@+id/title_endTime"
+        android:layout_above="@+id/end_time"
+        android:layout_toLeftOf="@+id/nextButton"
+        android:layout_toStartOf="@+id/nextButton" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -78,7 +78,8 @@
         android:onClick="onStartTimeClick"
         android:layout_alignTop="@+id/end_time"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:textColor="#11aaf1" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -86,11 +87,10 @@
         android:id="@+id/end_time"
         android:text="@string/init_endTime"
         android:onClick="onEndTimeClick"
-        android:layout_below="@+id/textView"
-        android:layout_alignLeft="@+id/textView"
-        android:layout_alignStart="@+id/textView"
-        android:layout_alignRight="@+id/textView"
-        android:layout_alignEnd="@+id/textView" />
+        android:layout_centerVertical="true"
+        android:layout_alignLeft="@+id/title_endTime"
+        android:layout_alignStart="@+id/title_endTime"
+        android:textColor="#3190ef" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -119,16 +119,16 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="@string/date_title"
         android:id="@+id/dateTitle"
-        android:layout_below="@+id/eventName"
-        android:layout_alignLeft="@+id/textView"
-        android:layout_alignStart="@+id/textView" />
+        android:layout_above="@+id/Loc_Spinner"
+        android:layout_alignLeft="@+id/title_endTime"
+        android:layout_alignStart="@+id/title_endTime" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="@string/title_descp"
-        android:id="@+id/textView2"
+        android:id="@+id/title_des"
         android:layout_below="@+id/start_time"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
@@ -136,28 +136,52 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/des"
-        android:layout_below="@+id/textView2"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="@string/default_date"
+        android:id="@+id/date"
+        android:onClick="onDateClick"
+        android:shadowColor="#abdafa"
+        android:textColor="#3d7cf1"
+        android:layout_below="@+id/dateTitle"
+        android:layout_alignLeft="@+id/dateTitle"
+        android:layout_alignStart="@+id/dateTitle" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/name"
+        android:layout_below="@+id/title_name"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_alignRight="@+id/nextButton"
-        android:layout_alignEnd="@+id/nextButton" />
+        android:layout_alignRight="@+id/eventName"
+        android:layout_alignEnd="@+id/eventName"
+        android:inputType="text"
+        android:editable="true" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/des"
+        android:layout_below="@+id/title_des"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignRight="@+id/dateTitle"
+        android:layout_alignEnd="@+id/dateTitle"
+        android:inputType="text" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="@string/default_date"
-        android:id="@+id/date"
-        android:layout_below="@+id/dateTitle"
-        android:layout_alignLeft="@+id/dateTitle"
-        android:layout_alignStart="@+id/dateTitle"
-        android:layout_alignRight="@+id/eventName"
-        android:layout_alignEnd="@+id/eventName"
-        android:onClick="onDateClick"
-        android:shadowColor="#abdafa"
-        android:textColor="#3d7cf1"
-        android:layout_alignBottom="@+id/Loc_Spinner" />
+        android:text="New Text"
+        android:id="@+id/textView"
+        android:layout_below="@+id/des"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="40dp"
+        android:layout_above="@+id/nextButton"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:editable="false" />
 
 
 </RelativeLayout>

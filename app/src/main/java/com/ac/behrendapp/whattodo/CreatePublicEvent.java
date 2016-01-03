@@ -22,15 +22,13 @@ import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.common.api.GoogleApiClient;
 
-import org.w3c.dom.Text;
-
 import java.util.Calendar;
 
 public class CreatePublicEvent extends AppCompatActivity {
 
     private Spinner locSpinner;
-    private TextView nameET, startTimeET, endTimeET, desET;
-    private TextView dateET, ETstartTime, ETendTime;
+    private EditText nameET, desET;
+    private TextView dateTextView, startTimeTextView, endTimeTextView,textView;
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
      * See https://g.co/AppIndexing/AndroidStudio for more information.
@@ -46,6 +44,7 @@ public class CreatePublicEvent extends AppCompatActivity {
         addItemsToLocSpinner();
 
 
+
         // ATTENTION: This was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
@@ -54,17 +53,17 @@ public class CreatePublicEvent extends AppCompatActivity {
     // This function is to initialize all the field variable and wait for input
     public void initialize() {
         locSpinner = (Spinner) findViewById(R.id.Loc_Spinner);
-        nameET = (TextView) findViewById(R.id.eventName);
-        //dateET=(EditText)findViewById(R.id.date);
-        startTimeET = (TextView) findViewById(R.id.start_time);
-        endTimeET = (TextView) findViewById(R.id.end_time);
-        desET = (TextView) findViewById(R.id.des);
-        dateET = (TextView) findViewById(R.id.date);
+        nameET = (EditText) findViewById(R.id.name);
+        startTimeTextView = (TextView) findViewById(R.id.start_time);
+        endTimeTextView = (TextView) findViewById(R.id.end_time);
+        desET = (EditText) findViewById(R.id.des);
+        dateTextView = (TextView) findViewById(R.id.date);
+
     }
 
     //This function is to pop out a dialog to pick date when click on the text field of date
     public void onDateClick(View v) {
-        final TextView ET_dateTime = (TextView) findViewById(R.id.date);
+        final TextView dateTimeTextView = (TextView) findViewById(R.id.date);
         if (v.getId() == R.id.date) {
             Calendar mcurrentDate = Calendar.getInstance();
             int mYear = mcurrentDate.get(Calendar.YEAR);
@@ -75,7 +74,7 @@ public class CreatePublicEvent extends AppCompatActivity {
             mDatePicker = new DatePickerDialog(CreatePublicEvent.this, new DatePickerDialog.OnDateSetListener() {
                 public void onDateSet(DatePicker datepicker, int selectedyear, int selectedmonth, int selectedday) {
                     selectedmonth += 1;
-                    ET_dateTime.setText("" + selectedmonth + "/" + selectedday + "/" + selectedyear);
+                    dateTimeTextView.setText(selectedmonth + "/" + selectedday + "/" + selectedyear);
                 }
             }, mYear, mMonth, mDay);
             mDatePicker.setTitle("Select Date");
@@ -85,7 +84,7 @@ public class CreatePublicEvent extends AppCompatActivity {
 
     //This function is to pop out a dialog to pick time when click on the text field of StartTime
     public void onStartTimeClick(View v) {
-        final TextView ET_startTime = (TextView) findViewById(R.id.start_time);
+        final TextView startTimeTextView = (TextView) findViewById(R.id.start_time);
         if (v.getId() == R.id.start_time) {
             Calendar currentTime = Calendar.getInstance();
             int curr_hour = currentTime.HOUR_OF_DAY;
@@ -98,7 +97,7 @@ public class CreatePublicEvent extends AppCompatActivity {
                     new TimePickerDialog.OnTimeSetListener() {
                         @Override
                         public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-                            ET_startTime.setText(hourOfDay + ":" + minute);
+                            startTimeTextView.setText(hourOfDay + ":" + minute);
                         }
                     }, curr_hour, curr_minute, false);
             TimePicker1.setTitle("Select Time");
@@ -108,7 +107,7 @@ public class CreatePublicEvent extends AppCompatActivity {
 
     //This function is to pop out a dialog to pick time when click on the text field of EndTime
     public void onEndTimeClick(View v) {
-        final TextView ET_endTime = (TextView) findViewById(R.id.end_time);
+        final TextView endTimeTextView = (TextView) findViewById(R.id.end_time);
         if (v.getId() == R.id.end_time) {
             Calendar currentTime = Calendar.getInstance();
             int curr_hour = currentTime.HOUR_OF_DAY;
@@ -121,7 +120,7 @@ public class CreatePublicEvent extends AppCompatActivity {
                     new TimePickerDialog.OnTimeSetListener() {
                         @Override
                         public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-                            ET_endTime.setText(hourOfDay + ":" + minute);
+                            endTimeTextView.setText(hourOfDay + ":" + minute);
                         }
                     }, curr_hour, curr_minute, false);
             TimePicker1.setTitle("Select Time");
@@ -134,35 +133,106 @@ public class CreatePublicEvent extends AppCompatActivity {
 
         if (v.getId() == R.id.nextButton) {
 
-            //get data from fields
-            int spinnerPos = locSpinner.getSelectedItemPosition();
-            String loc = locSpinner.getItemAtPosition(spinnerPos).toString();
-            String name = nameET.getText().toString();
-            String date = dateET.getText().toString();
-            String startTime = startTimeET.getText().toString();
-            String endTime = endTimeET.getText().toString();
-            String des = desET.getText().toString();
+            Event newEvent = new Event();
+            newEvent=getEvent();
 
-
-          /*
-                        //Set up a new event by the input data
-                        Event newEvent= new Event();
-                        newEvent.setEName(name);
-                        newEvent.setEDate(date);
-                        newEvent.setEStartTime(startTime);
-                        newEvent.setEEndTime(endTime);
-                        newEvent.setELoc(loc);
-                        newEvent.setDescription(des);
-
-                        // Save event object into Database
-                        MyEventDBHandler eventDBHandler;
-                        eventDBHandler = new MyEventDBHandler(this,null,null,1);
-                        eventDBHandler.addEvent(newEvent);
-                        */
-
-
+            textView=(TextView)findViewById(R.id.textView);
+            textView.setText(newEvent.getEDate()+"\n" +
+                        newEvent.getEYear() + " " +
+                        newEvent.getEMonth()+ " " +
+                        newEvent.getEDay() + "\n" +
+                        newEvent.getEEndHour() + " " +
+                        newEvent.getEEndMin() + "\n" +
+                        newEvent.getEStartHour()+ " " +
+                        newEvent.getEStartMin());
         }
 
+    }
+
+    //This function is to save data into Event Object from the textfield
+    public Event getEvent() {
+
+        Event e = new Event();
+        //get data from fields
+
+        //get location
+        int spinnerPos = locSpinner.getSelectedItemPosition();
+        String loc = locSpinner.getItemAtPosition(spinnerPos).toString();
+        e.setELoc(loc);
+
+        boolean flag_validInput = true;
+
+        //get name
+        String name = nameET.getText().toString();
+        name = getName(name);
+        if (name!= null) {
+            e.setEName(name);
+        }
+        else{
+            e=null;
+            return e;
+        }
+
+        //get date
+        int day, month, year;
+        String date = dateTextView.getText().toString();
+        int dateInt = getDate(date);
+        if(dateInt != -1) {
+            year = dateInt % 10000;
+            dateInt /= 10000;
+            day = dateInt % 100;
+            month = dateInt / 100;
+
+            e.setEDate(date);
+            e.setEDay(day);
+            e.setEMonth(month);
+            e.setEYear(year);
+        }
+        else{
+            e=null;
+            return e;
+        }
+
+        //get startHour,startMin
+        int startHour,startMin;
+        String startTime = startTimeTextView.getText().toString();
+        int startTimeInt = getStartTime(startTime);
+        if (startTimeInt != -1) {
+
+            startMin = startTimeInt % 100;
+            startHour = startTimeInt / 100;
+
+            e.setEStartTime(startTime);
+            e.setEStartHour(startHour);
+            e.setEStartMin(startMin);
+        }
+        else{
+            e=null;
+            return e;
+        }
+
+        //get endHour,endMin
+        int endHour,endMin;
+        String endTime = endTimeTextView.getText().toString();
+        int endTimeInt = getEndTime(startTime,endTime);
+        if (endTimeInt != -1) {
+            endMin = endTimeInt % 100;
+            endHour = endTimeInt / 100;
+
+            e.setEEndTime(endTime);
+            e.setEEndHour(endHour);
+            e.setEEndMin(endMin);
+        }
+        else{
+            e=null;
+            return e;
+        }
+
+        //get descrpition
+        String decription=desET.getText().toString();
+        e.setDescription(decription);
+
+        return e;
     }
 
     public String getName(String name) {
@@ -217,7 +287,7 @@ public class CreatePublicEvent extends AppCompatActivity {
         if (startTime == null) {
             alertmessage("Start time cannot be empty");
         } else {
-            String[] str = startTime.split("/");
+            String[] str = startTime.split(":");
             int hour = Integer.parseInt(str[0]);
             int minute = Integer.parseInt(str[1]);
             result = hour*100 + minute;
@@ -241,7 +311,7 @@ public class CreatePublicEvent extends AppCompatActivity {
         else if (endTime.compareTo(startTime) < 0)
             alertmessage("End time cannot be earlier than starting time");
         else {
-            String[] str = endTime.split("/");
+            String[] str = endTime.split(":");
             int hour = Integer.parseInt(str[0]);
             int minute = Integer.parseInt(str[1]);
             result = hour*100 + minute;
