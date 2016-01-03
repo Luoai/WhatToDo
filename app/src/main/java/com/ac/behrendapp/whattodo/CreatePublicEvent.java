@@ -248,6 +248,41 @@ public class CreatePublicEvent extends AppCompatActivity {
 
     private void alertmessage(String message) {
         Toast toast = Toast.makeText(getApplicationContext(), message,Toast.LENGTH_LONG);
+        /*
+        LayoutInflater askInput = LayoutInflater.from(this);
+        View promptView = askInput.inflate(R.layout.prompt, null);
+
+        // get edit text setup and give dialog a view
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setView(promptView);
+        final EditText inputText = (EditText) promptView.findViewById(R.id.userInput);
+        inputText.setText(UploadRequestUtil.address);
+        AlertDialog dialog;
+
+        // build the dialog
+        builder.setCancelable(false)
+                .setPositiveButton("确认", new DialogInterface.OnClickListener() {
+
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        // TODO Auto-generated method stub
+                        // get the user input
+                        UploadRequestUtil.address = inputText.getText().toString();
+                    }
+                })
+                .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        // TODO Auto-generated method stub
+                        dialog.dismiss();
+                    }
+                });
+
+        // show the dialog
+        dialog = builder.create();
+        dialog.show();
+        */
     }
 
     // This function is to add items on the location Spinner
