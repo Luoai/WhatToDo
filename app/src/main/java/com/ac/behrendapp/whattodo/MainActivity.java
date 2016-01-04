@@ -1,5 +1,9 @@
 package com.ac.behrendapp.whattodo;
 
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -17,11 +21,37 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        final Context context = this;
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                // for the edit menu, 0 for Existing Event, 1 for Create Public Event, 2 for Create Private Schedule
+                final String[] tools = {"Existing Event", "Create Public Event", "Create Private Schedule"};
+                final AlertDialog.Builder builder = new AlertDialog.Builder(context);
+
+                //setup for the edit menu
+
+                builder.setTitle("请选择工具").setSingleChoiceItems(tools, -1,
+                        new DialogInterface.OnClickListener(){
+                            public void onClick(DialogInterface dialog, int selected){
+
+                                dialog.cancel();
+
+                                switch (selected) {
+                                    case 1:
+                                        Intent intent = new Intent(MainActivity.this, CreatePublicEvent.class);
+                                        startActivity(intent);
+                                        break;
+                                }
+                            }
+                        });
+
+                //show the dialog
+                AlertDialog ad = builder.create();
+                ad.show();
+
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
