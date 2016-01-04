@@ -2,7 +2,6 @@
     <string name="app_name">WhatToDo</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_add_public_event">New Public Event</string>
-    <string name="title_CreateNewEvent">Create New Public Event</string>
     <string name="title_EventName">Event Name</string>
     <string name="nextButton">NEXT</string>
     <string name="title_date">Date</string>

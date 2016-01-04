@@ -21,28 +21,41 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        final Context context = this;
+        final Context context = this;//for alert dialog
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // for the edit menu, 0 for Existing Event, 1 for Create Public Event, 2 for Create Private Schedule
-                final String[] tools = {"Existing Event", "Create Public Event", "Create Private Schedule"};
+                final String[] tools = {"Existing Event", "Creating Public Event", "Creating Private Schedule"};
                 final AlertDialog.Builder builder = new AlertDialog.Builder(context);
 
                 //setup for the edit menu
 
-                builder.setTitle("请选择工具").setSingleChoiceItems(tools, -1,
+                builder.setTitle("Choice New Schedule from").setSingleChoiceItems(tools, -1,
                         new DialogInterface.OnClickListener(){
                             public void onClick(DialogInterface dialog, int selected){
 
                                 dialog.cancel();
 
                                 switch (selected) {
+
+                                    //Existing Event
+                                    case 0:
+                                        break;
+
+                                    //Creating Public Event
                                     case 1:
-                                        Intent intent = new Intent(MainActivity.this, CreatePublicEvent.class);
-                                        startActivity(intent);
+                                        Intent intent1 = new Intent(MainActivity.this, CreatePublicEvent.class);
+                                        intent1.addFlags(1);
+                                        startActivity(intent1);
+                                        break;
+
+                                    //Creating Private Schedule
+                                    case 2:
+                                        Intent intent2 = new Intent(MainActivity.this, CreatePublicEvent.class);
+                                        intent2.addFlags(2);
+                                        startActivity(intent2);
                                         break;
                                 }
                             }
@@ -52,8 +65,8 @@ public class MainActivity extends AppCompatActivity {
                 AlertDialog ad = builder.create();
                 ad.show();
 
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                //Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                //        .setAction("Action", null).show();
             }
         });
     }

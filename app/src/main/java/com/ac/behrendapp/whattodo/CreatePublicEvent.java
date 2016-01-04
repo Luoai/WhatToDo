@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -28,7 +29,7 @@ public class CreatePublicEvent extends AppCompatActivity {
 
     private Spinner locSpinner;
     private EditText nameET, desET;
-    private TextView dateTextView, startTimeTextView, endTimeTextView,textView;
+    private TextView dateTextView, startTimeTextView, endTimeTextView,textView, title;
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
      * See https://g.co/AppIndexing/AndroidStudio for more information.
@@ -39,7 +40,9 @@ public class CreatePublicEvent extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_public_event);
+
         initialize();
+
         //Add items to spinners here
         addItemsToLocSpinner();
 
@@ -52,13 +55,21 @@ public class CreatePublicEvent extends AppCompatActivity {
 
     // This function is to initialize all the field variable and wait for input
     public void initialize() {
+
         locSpinner = (Spinner) findViewById(R.id.Loc_Spinner);
         nameET = (EditText) findViewById(R.id.name);
         startTimeTextView = (TextView) findViewById(R.id.start_time);
         endTimeTextView = (TextView) findViewById(R.id.end_time);
         desET = (EditText) findViewById(R.id.des);
         dateTextView = (TextView) findViewById(R.id.date);
+        title = (TextView) findViewById(R.id.title_CreateNewEvent);
 
+        //get intent information from main activity and set up the title
+        Intent intent = getIntent();
+        if (intent.getFlags() == 1)
+            title.setText("Create New Public Event");
+        else if(intent.getFlags() == 2)
+            title.setText("Create New Private Schedule");
     }
 
     //This function is to pop out a dialog to pick date when click on the text field of date
