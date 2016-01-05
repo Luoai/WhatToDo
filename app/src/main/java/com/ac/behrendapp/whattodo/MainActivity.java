@@ -20,9 +20,12 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        System.out.println("setting up");
+        final Context context = this;//for alert dialog
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        final Context context = this;//for alert dialog
+        System.out.println("\nmain activity setup completed\n");
 
         //test here. AC
         displayPrivateEvents();
@@ -77,8 +80,9 @@ public class MainActivity extends AppCompatActivity {
 
     public void displayPrivateEvents() {
         TextView content = (TextView) findViewById(R.id.contentText);
-        MyEventDBHandler helper = new MyEventDBHandler(this, null, null, 1);
-        content.setText("Event\tDate\tLocation\n\n" + helper.databaseToString());
+        //2cMyEventDBHandler helper = new MyEventDBHandler(this, null, null, 1);
+        content.setText("Event\tDate\tLocation\n\n");// + helper.databaseToString());
+        System.out.println("\ndisplay private events\n");
     }
 
     @Override
