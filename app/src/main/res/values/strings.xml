@@ -14,6 +14,13 @@
     <string name="date_title">Date:(CLICK TO SET)</string>
     <string name="title_descp">Descrption</string>
     <string name="default_date">mm/dd/yyyy</string>
+    <string name="title_NewPrivateEvent">New Private Event</string>
+    <string name="title_EventStartTime">Event Start Time</string>
+    <string name="title_des">Description</string>
+    <string name="title_impLvl">Importance Level</string>
+    <string name="title_createButton">CREATE</string>
+    <string name="title_resetButton">RESET</string>
+    <string name="title_cancelButton">CANCEL</string>
     <string-array name="LOCATIONS">
         <item>Burke</item>
         <item>Junker</item>
@@ -21,11 +28,6 @@
         <item>Reed</item>
         <item>N/A</item>
     </string-array>
-
-
-
-
-
 
 
 </resources>

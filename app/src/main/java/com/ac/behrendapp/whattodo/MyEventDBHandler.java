@@ -106,16 +106,18 @@ public class MyEventDBHandler extends SQLiteOpenHelper {
                 " WHERE 1";
 
         //Cursor point to a location in your results
-        Cursor c = db.rawQuery(query,null);
+        Cursor c = db.rawQuery(query, null);
         //Move to first row in your result
         c.moveToFirst();
 
-        while(!c.isAfterLast()) {
-            if (c.getString(c.getColumnIndex("eventname")) != null) {
-                dbString += c.getString(c.getColumnIndex("eventname"));
+        do {
+            if (c.getString(1) != null) {
+                dbString += c.getString(1) + "\t" +
+                        c.getString(3) + "\t" +
+                        c.getString(2);
                 dbString += "\n";
             }
-        }
+        } while (c.moveToNext());
         db.close();
         return dbString;
     }

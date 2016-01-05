@@ -12,6 +12,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -22,6 +23,9 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         final Context context = this;//for alert dialog
+
+        //test here. AC
+        displayPrivateEvents();
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -69,6 +73,12 @@ public class MainActivity extends AppCompatActivity {
                 //        .setAction("Action", null).show();
             }
         });
+    }
+
+    public void displayPrivateEvents() {
+        TextView content = (TextView) findViewById(R.id.contentText);
+        MyEventDBHandler helper = new MyEventDBHandler(this, null, null, 1);
+        content.setText("Event\tDate\tLocation\n\n" + helper.databaseToString());
     }
 
     @Override
