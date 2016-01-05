@@ -145,13 +145,15 @@ public class CreatePublicEvent extends AppCompatActivity {
         if (v.getId() == R.id.nextButton) {
 
             Event newEvent = new Event();
-            newEvent=getEvent();
+            newEvent = getEvent();
 
-            MyEventDBHandler eventDBHandler= new MyEventDBHandler(this,null,null,1);
+            MyEventDBHandler eventDBHandler = new MyEventDBHandler(this, null, null, 1);
             eventDBHandler.addEvent(newEvent);
 
 
-            textView=(TextView)findViewById(R.id.textView);
+            textView = (TextView) findViewById(R.id.textView);
+            textView.setText((eventDBHandler.getAllBurkeEvent()));
+            /*
             textView.setText(newEvent.getEDate()+"\n" +
                         newEvent.getEYear() + " " +
                         newEvent.getEMonth()+ " " +
@@ -160,6 +162,8 @@ public class CreatePublicEvent extends AppCompatActivity {
                         newEvent.getEEndMin() + "\n" +
                         newEvent.getEStartHour()+ " " +
                         newEvent.getEStartMin());
+                        */
+
         }
 
     }
@@ -277,7 +281,7 @@ public class CreatePublicEvent extends AppCompatActivity {
         //  * String "mm/dd/yyyy" => int "mmddyyyy"
         //  3)the date is some day after today
         int result = -1;
-        if (date == null) {
+        if (date == "mm/dd/yyyy") {
             alertmessage("Date cannot be empty");
         } else {
             String[] str = date.split("/");
@@ -299,15 +303,17 @@ public class CreatePublicEvent extends AppCompatActivity {
         //  1)not empty
         //  2)the time has exactly format hh:mm
         int result = -1;
-        if (startTime == null) {
+        if (startTime == "hh:mm") {
             alertmessage("Start time cannot be empty");
         } else {
+
             String[] str = startTime.split(":");
             int hour = Integer.parseInt(str[0]);
             int minute = Integer.parseInt(str[1]);
-            result = hour*100 + minute;
+            result = hour * 100 + minute;
         }
         return result;
+
     }
 
     public int getEndTime(String startTime, String endTime) {
@@ -321,7 +327,7 @@ public class CreatePublicEvent extends AppCompatActivity {
         //  2)the time has exactly format hh:mm
         // 3)the endTime should be some time after startTime
         int result = -1;
-        if (endTime == null)
+        if (endTime == "hh:mm")
             alertmessage("End time cannot be empty");
         else if (endTime.compareTo(startTime) < 0)
             alertmessage("End time cannot be earlier than starting time");
@@ -329,9 +335,10 @@ public class CreatePublicEvent extends AppCompatActivity {
             String[] str = endTime.split(":");
             int hour = Integer.parseInt(str[0]);
             int minute = Integer.parseInt(str[1]);
-            result = hour*100 + minute;
+            result = hour * 100 + minute;
         }
         return result;
+
     }
 
     private void alertmessage(String message) {

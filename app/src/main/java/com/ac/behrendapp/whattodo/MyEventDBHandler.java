@@ -125,20 +125,20 @@ public class MyEventDBHandler extends SQLiteOpenHelper {
         String dbString = "";
         SQLiteDatabase db = getWritableDatabase();
         String query = "SELECT * FROM " + TABLE_EVENTS +
-                " WHERE " + COLUMN_ELOC + " = \"Burke\" ";
+                " WHERE " + COLUMN_ELOC + " = \'Burke\'";
 
         // http://www.androidhive.info/2012/05/how-to-connect-android-with-php-mysql/
         //Cursor point to a location in your results
-        Cursor c = db.rawQuery(query,null);
+        Cursor c = db.rawQuery(query, null);
         //Move to first row in your result
         c.moveToFirst();
 
-        while(!c.isAfterLast()) {
-            if (c.getString(c.getColumnIndex("eventname")) != null) {
-                dbString += c.getString(c.getColumnIndex("eventname"));
+        do {
+            if (c.getString(1) != null) {
+                dbString += c.getString(1);
                 dbString += "\n";
             }
-        }
+        } while (c.moveToNext());
         db.close();
         return dbString;
     }
