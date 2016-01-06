@@ -1,10 +1,13 @@
 package com.ac.behrendapp.whattodo;
 
+import android.content.ContextWrapper;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.database.Cursor;
 import android.content.Context;
 import android.content.ContentValues;
+
+import java.io.File;
 
 
 // hahahaha
@@ -32,13 +35,19 @@ public class MyEventDBHandler extends SQLiteOpenHelper {
     private static final String COLUMN_DESCRITION = "description";
 
     //Constructor
+
     public MyEventDBHandler(Context context,String name, SQLiteDatabase.CursorFactory factory, int version){
         super(context,DATABASE_NAME,factory,DATABASE_VERSION);
     }
 
+    public boolean doesDatabaseExist(ContextWrapper context) {
+        File dbFile = context.getFileStreamPath("events.db");
+        return dbFile.exists();
+    }
+
     @Override
     public void onCreate(SQLiteDatabase db){
-        // When create, what you want to do here
+        // build columns in the db
         String query = "CREATE TABLE " + TABLE_EVENTS + "(" +
                 COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + //SQL will automatically genereate ID
                 COLUMN_ENAME + "  TEXT, " +
@@ -55,6 +64,7 @@ public class MyEventDBHandler extends SQLiteOpenHelper {
                 COLUMN_EENDMIN + " INTEGER, " +
                 COLUMN_DESCRITION + " TEXT " +
                 ");";
+
         db.execSQL(query);//pass query to SQL
 
     }
@@ -102,12 +112,13 @@ public class MyEventDBHandler extends SQLiteOpenHelper {
     public String databaseToString(){
         String dbString = "";
         SQLiteDatabase db = getWritableDatabase();
-        String query = "SELECT * FROM " + TABLE_EVENTS +
-                " WHERE 1";
+        //String query = "SELECT * FROM " + TABLE_EVENTS +
+        //    " WHERE 1";
 
         //Cursor point to a location in your results
-        Cursor c = db.rawQuery(query, null);
-        //Move to first row in your result
+        //Cursor c = db.rawQuery(query, null);
+        Cursor c = db.query(TABLE_EVENTS, null, null, null, null, null, COLUMN_EDATE + " DESC");
+        //Move to first row in your result;
         c.moveToFirst();
 
         do {
