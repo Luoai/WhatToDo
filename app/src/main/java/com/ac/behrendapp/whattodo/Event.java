@@ -8,19 +8,20 @@ public class Event {
     //Data List
 
 
-    String eName,eStartTime,eEndTime,eLoc,eDate,description;
-    int eYear,eMonth,eDay,eStartHour,eStartMin,eEndHour,eEndMin;
+    String eName, eStartTime, eEndTime, eLoc, description;
+    int eDate, eYear, eMonth, eDay, eStartHour, eStartMin, eEndHour, eEndMin;
     //float importanceLevel;
 
 
 
     public Event(){
+        /*
         eName = null;
         eStartTime = null;
         eEndTime = null;
         eLoc = null;
-        eDate = null;
         description = null;
+        */
         //  importanceLevel = 0;
 
     }
@@ -49,8 +50,19 @@ public class Event {
     public void setEEndTime(String time){eEndTime=time;}
     public String getEEndTime(){return eEndTime;}
 
-    public void setEDate(String time){eDate=time;}
-    public String getEDate(){return eDate;}
+    public void setEDate(int time) {
+        eDate = time;
+    }
+
+    public int getEDate() {
+        return eDate;
+    }
+
+    public String getFormattedDate() {
+        return String.valueOf(eMonth) + "/" +
+                String.valueOf(eDay) + "/" +
+                String.valueOf(eYear);
+    }
 
     public void setDescription(String des){description=des;}
     public String getDescription(){return description;}

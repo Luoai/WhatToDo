@@ -22,7 +22,7 @@ public class CreatePrivateEvent extends AppCompatActivity {
 
     private EditText nameET, desET, locET;
     private TextView dateTextView, startTimeTextView, endTimeTextView, textView, title;
-    private RatingBar impLevelRB;
+    // private RatingBar impLevelRB;
 
 
     @Override
@@ -43,26 +43,25 @@ public class CreatePrivateEvent extends AppCompatActivity {
         endTimeTextView = (TextView) findViewById(R.id.endTime);
         desET = (EditText) findViewById(R.id.des);
         dateTextView = (TextView) findViewById(R.id.date);
-        impLevelRB = (RatingBar) findViewById(R.id.ratingBar);
+        // impLevelRB = (RatingBar) findViewById(R.id.ratingBar);
     }
 
 
     //Save data to DB after clicking the "CREATE" button
-    public void onCreateClick(View v) {
+  /*  public void onCreateClick(View v) {
 
         if (v.getId() == R.id.createButton) {
 
             // read data from user interface to an Event Object
-            Event newEvent = new Event();
-            newEvent = getEvent();
+            Event newEvent = getEvent();
             //Save Event Object into DB
             MyEventDBHandler eventDBHandler = new MyEventDBHandler(this, null, null, 1);
             eventDBHandler.addEvent(newEvent);
 
-            //TODO Jump out some page
+            // Jump out some page
 
         }
-    }
+    }*/
 
     //Reset all input field after clicking the reset button
     public void onResetClick(View v) {
@@ -150,18 +149,45 @@ public class CreatePrivateEvent extends AppCompatActivity {
     }
 
 
+    //This function is going to save the user input into DB when the next Button is clicked
+    public void onCreateClick(View v) {
+
+        if (v.getId() == R.id.createButton) {
+
+            Event newEvent = new Event();
+            newEvent = getEvent();
+
+            MyEventDBHandler eventDBHandler = new MyEventDBHandler(this, null, null, 1);
+            eventDBHandler.addEvent(newEvent);
+
+/*
+            textView = (TextView) findViewById(R.id.textView);
+
+            textView.setText(newEvent.getEDate() + "\n" +
+                    newEvent.getEYear() + " " +
+                    newEvent.getEMonth() + " " +
+                    newEvent.getEDay() + "\n" +
+                    newEvent.getEEndHour() + " " +
+                    newEvent.getEEndMin() + "\n" +
+                    newEvent.getEStartHour() + " " +
+                    newEvent.getEStartMin());
+*/
+
+        }
+
+    }
+
     //This function is to save data into Event Object from the textfield
     public Event getEvent() {
 
         Event e = new Event();
         //get data from fields
 
+        //get location
+        String loc = locET.getText().toString();
+        e.setELoc(loc);
 
-        boolean flag_validInput = true;
-
-        //get importance level
-        float implevel = impLevelRB.getRating();
-        //e.setImportanceLevel(implevel);
+        // boolean flag_validInput = true;
 
         //get name
         String name = nameET.getText().toString();
@@ -173,27 +199,17 @@ public class CreatePrivateEvent extends AppCompatActivity {
             return e;
         }
 
-        //get location
-        String loc = locET.getText().toString();
-        loc = getName(loc);
-        if (loc != null) {
-            e.setELoc(loc);
-        } else {
-            e = null;
-            return e;
-        }
-
         //get date
         int day, month, year;
         String date = dateTextView.getText().toString();
         int dateInt = getDate(date);
         if (dateInt != -1) {
-            year = dateInt % 10000;
-            dateInt /= 10000;
             day = dateInt % 100;
-            month = dateInt / 100;
+            dateInt /= 100;
+            month = dateInt % 100;
+            year = dateInt / 100;
 
-            e.setEDate(date);
+            e.setEDate(dateInt);
             e.setEDay(day);
             e.setEMonth(month);
             e.setEYear(year);
@@ -258,25 +274,18 @@ public class CreatePrivateEvent extends AppCompatActivity {
     }
 
     public int getDate(String date) {
-        //A. This function is to check whether the date input is valid.
-        //      and will return a boolean value
-        //B. If the name is not correct, it will pop out a dialog to display
-        //      the requirements, ask users to re-input the value, stay at the previous page and return -1,
-        //C. else return mmddyyyy;
-        //D. Requirements: The String date should be
-        //  1)not empty
-        //  2)the date has exact format mm/dd/yyyy
-        //  * String "mm/dd/yyyy" => int "mmddyyyy"
-        //  3)the date is some day after today
+        //Input: String "mm/dd/yyyy"
+        //Output: 8-digit Integer yyyymmdd
+        //          or -1 if the input is empty (pop out error message)
         int result = -1;
         if (date == "mm/dd/yyyy") {
             alertmessage("Date cannot be empty");
         } else {
             String[] str = date.split("/");
-            int day = Integer.parseInt(str[0]);
-            int month = Integer.parseInt(str[1]);
+            int day = Integer.parseInt(str[1]);
+            int month = Integer.parseInt(str[0]);
             int year = Integer.parseInt(str[2]);
-            result = day * 1000000 + month * 10000 + year;
+            result = year * 10000 + month * 100 + day;
         }
         return result;
     }

@@ -80,8 +80,12 @@ public class MainActivity extends AppCompatActivity {
 
     public void displayPrivateEvents() {
         TextView content = (TextView) findViewById(R.id.contentText);
+        this.deleteDatabase("events");
+        //content.setText("Hello Jason");
         MyEventDBHandler helper = new MyEventDBHandler(this, null, null, 1);
-        content.setText("Event\tDate\tLocation\n\n" + helper.databaseToString());
+
+        content.setText("Event\tDate\tLocation\n\n" +
+                helper.databaseToString());
         System.out.println("\ndisplay private events\n");
     }
 

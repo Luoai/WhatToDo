@@ -196,12 +196,12 @@ public class CreatePublicEvent extends AppCompatActivity {
         String date = dateTextView.getText().toString();
         int dateInt = getDate(date);
         if(dateInt != -1) {
-            year = dateInt % 10000;
-            dateInt /= 10000;
             day = dateInt % 100;
-            month = dateInt / 100;
+            dateInt /= 100;
+            month = dateInt % 100;
+            year = dateInt / 100;
 
-            e.setEDate(date);
+            e.setEDate(dateInt);
             e.setEDay(day);
             e.setEMonth(month);
             e.setEYear(year);
@@ -284,10 +284,10 @@ public class CreatePublicEvent extends AppCompatActivity {
             alertmessage("Date cannot be empty");
         } else {
             String[] str = date.split("/");
-            int day = Integer.parseInt(str[0]);
-            int month = Integer.parseInt(str[1]);
+            int day = Integer.parseInt(str[1]);
+            int month = Integer.parseInt(str[0]);
             int year = Integer.parseInt(str[2]);
-            result = day * 1000000 + month * 10000 + year;
+            result = year * 10000 + month * 100 + day;
         }
         return result;
     }

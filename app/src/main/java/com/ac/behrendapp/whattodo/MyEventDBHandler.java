@@ -53,7 +53,7 @@ public class MyEventDBHandler extends SQLiteOpenHelper {
                 COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + //SQL will automatically genereate ID
                 COLUMN_ENAME + "  TEXT, " +
                 COLUMN_ELOC + " TEXT, " +
-                COLUMN_EDATE + " TEXT, " +
+                COLUMN_EDATE + " INTEGER, " +
                 COLUMN_EYEAR + " INTEGER, " +
                 COLUMN_EMONTH + " INTEGER, " +
                 COLUMN_EDAY + " INTEGER, " +
@@ -118,7 +118,8 @@ public class MyEventDBHandler extends SQLiteOpenHelper {
 
         //Cursor point to a location in your results
         //Cursor c = db.rawQuery(query, null);
-        Cursor c = db.query(TABLE_EVENTS, null, null, null, null, null, COLUMN_EDATE + " DESC");
+        String[] columns = {COLUMN_ID, COLUMN_ENAME, COLUMN_ELOC, COLUMN_EDATE};
+        Cursor c = db.query(TABLE_EVENTS, columns, null, null, null, null, COLUMN_EDAY + " DESC");
         //Move to first row in your result;
         c.moveToFirst();
 

@@ -158,17 +158,6 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
-    <RatingBar
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/ratingBar"
-        android:layout_below="@+id/title_importanceLevel"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_toStartOf="@+id/endTime"
-        android:layout_alignRight="@+id/title_importanceLevel"
-        android:layout_alignEnd="@+id/title_importanceLevel" />
-
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
