@@ -161,7 +161,7 @@ public class CreatePrivateEvent extends AppCompatActivity {
 
         //get importance level
         float implevel = impLevelRB.getRating();
-        e.setImportanceLevel(implevel);
+        //e.setImportanceLevel(implevel);
 
         //get name
         String name = nameET.getText().toString();

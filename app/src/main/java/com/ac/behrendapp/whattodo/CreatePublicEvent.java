@@ -152,8 +152,7 @@ public class CreatePublicEvent extends AppCompatActivity {
 
 
             textView = (TextView) findViewById(R.id.textView);
-            textView.setText((eventDBHandler.getAllBurkeEvent()));
-            /*
+
             textView.setText(newEvent.getEDate()+"\n" +
                         newEvent.getEYear() + " " +
                         newEvent.getEMonth()+ " " +
@@ -162,7 +161,7 @@ public class CreatePublicEvent extends AppCompatActivity {
                         newEvent.getEEndMin() + "\n" +
                         newEvent.getEStartHour()+ " " +
                         newEvent.getEStartMin());
-                        */
+
 
         }
 
@@ -179,7 +178,7 @@ public class CreatePublicEvent extends AppCompatActivity {
         String loc = locSpinner.getItemAtPosition(spinnerPos).toString();
         e.setELoc(loc);
 
-        boolean flag_validInput = true;
+        // boolean flag_validInput = true;
 
         //get name
         String name = nameET.getText().toString();

@@ -10,7 +10,7 @@ public class Event {
 
     String eName,eStartTime,eEndTime,eLoc,eDate,description;
     int eYear,eMonth,eDay,eStartHour,eStartMin,eEndHour,eEndMin;
-    float importanceLevel;
+    //float importanceLevel;
 
 
 
@@ -21,6 +21,7 @@ public class Event {
         eLoc = null;
         eDate = null;
         description = null;
+        //  importanceLevel = 0;
 
     }
 
@@ -30,14 +31,14 @@ public class Event {
 
     public void setEName(String name){eName=name;}
     public String getEname(){return eName;}
-
+/*
     public void setImportanceLevel(float level) {
         importanceLevel = level;
     }
 
-    public float getImportanceLevel() {
+   / public float getImportanceLevel() {
         return importanceLevel;
-    }
+    }*/
 
     public void setELoc(String loc){eLoc=loc;}
     public String getELoc(){return eLoc;}
