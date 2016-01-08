@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.DialogInterface;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -16,14 +17,22 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.google.android.gms.appindexing.Action;
+import com.google.android.gms.appindexing.AppIndex;
+import com.google.android.gms.common.api.GoogleApiClient;
+
 import java.util.Calendar;
 
 public class CreatePrivateEvent extends AppCompatActivity {
 
     private EditText nameET, desET, locET;
     private TextView dateTextView, startTimeTextView, endTimeTextView, textView, title;
+    /**
+     * ATTENTION: This was auto-generated to implement the App Indexing API.
+     * See https://g.co/AppIndexing/AndroidStudio for more information.
+     */
+    private GoogleApiClient client;
     // private RatingBar impLevelRB;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +41,9 @@ public class CreatePrivateEvent extends AppCompatActivity {
 
         initialize();
 
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
     }
 
     // This function is to initialize all the field variable and wait for input
@@ -154,8 +166,7 @@ public class CreatePrivateEvent extends AppCompatActivity {
 
         if (v.getId() == R.id.createButton) {
 
-            Event newEvent = new Event();
-            newEvent = getEvent();
+            Event newEvent = getEvent();
 
             MyEventDBHandler eventDBHandler = new MyEventDBHandler(this, null, null, 1);
             eventDBHandler.addEvent(newEvent);
@@ -183,70 +194,51 @@ public class CreatePrivateEvent extends AppCompatActivity {
         Event e = new Event();
         //get data from fields
 
-        //get location
-        String loc = locET.getText().toString();
-        e.setELoc(loc);
-
-        // boolean flag_validInput = true;
-
         //get name
         String name = nameET.getText().toString();
-        name = getName(name);
-        if (name != null) {
+        if (name != "") {
             e.setEName(name);
         } else {
+            alertmessage("Name cannot be empty!");
             e = null;
             return e;
         }
 
-        //get date
-        int day, month, year;
-        String date = dateTextView.getText().toString();
-        int dateInt = getDate(date);
-        if (dateInt != -1) {
-            day = dateInt % 100;
-            dateInt /= 100;
-            month = dateInt % 100;
-            year = dateInt / 100;
-
-            e.setEDate(dateInt);
-            e.setEDay(day);
-            e.setEMonth(month);
-            e.setEYear(year);
+        //get location
+        String loc = locET.getText().toString();
+        if (loc != "") {
+            e.setELoc(loc);
         } else {
+            alertmessage("Location cannot be empty!");
+            return null;
+        }
+
+        //get date
+        String date = dateTextView.getText().toString();
+        if (date != "mm/dd/yyyy") {
+            e.setSplitedDate(date);
+        } else {
+            alertmessage("Date cannot be empty!");
             e = null;
             return e;
         }
 
         //get startHour,startMin
-        int startHour, startMin;
         String startTime = startTimeTextView.getText().toString();
-        int startTimeInt = getStartTime(startTime);
-        if (startTimeInt != -1) {
-
-            startMin = startTimeInt % 100;
-            startHour = startTimeInt / 100;
-
-            e.setEStartTime(startTime);
-            e.setEStartHour(startHour);
-            e.setEStartMin(startMin);
+        if (startTime != "hh:mm") {
+            e.setSplitStartTime(startTime);
         } else {
+            alertmessage("Start Time Cannot be Empty!");
             e = null;
             return e;
         }
 
         //get endHour,endMin
-        int endHour, endMin;
         String endTime = endTimeTextView.getText().toString();
-        int endTimeInt = getEndTime(startTime, endTime);
-        if (endTimeInt != -1) {
-            endMin = endTimeInt % 100;
-            endHour = endTimeInt / 100;
-
-            e.setEEndTime(endTime);
-            e.setEEndHour(endHour);
-            e.setEEndMin(endMin);
+        if (endTime != "hh:mm") {
+            e.setSplitEndTime(endTime);
         } else {
+            alertmessage("End Time cannot be empty!");
             e = null;
             return e;
         }
@@ -258,85 +250,7 @@ public class CreatePrivateEvent extends AppCompatActivity {
         return e;
     }
 
-    public String getName(String name) {
-        //A. This function is to check whether the name input is valid
-        //      and will return a boolean value.
-        //B. If the name is not correct, it will pop out a dialog to display
-        //      the requirements, ask users to re-input the value, stay at the previous page and return -1,
-        //C. else return name;
-        // Requirement:
-        //  1) not empty
-        if (name == null) {
-            alertmessage("Your " + name + " cannot be empty");
-            return null;
-        } else
-            return name;
-    }
 
-    public int getDate(String date) {
-        //Input: String "mm/dd/yyyy"
-        //Output: 8-digit Integer yyyymmdd
-        //          or -1 if the input is empty (pop out error message)
-        int result = -1;
-        if (date == "mm/dd/yyyy") {
-            alertmessage("Date cannot be empty");
-        } else {
-            String[] str = date.split("/");
-            int day = Integer.parseInt(str[1]);
-            int month = Integer.parseInt(str[0]);
-            int year = Integer.parseInt(str[2]);
-            result = year * 10000 + month * 100 + day;
-        }
-        return result;
-    }
-
-    public int getStartTime(String startTime) {
-        //A. This function is to check whether the date input is vaild
-        //      and will a boolean value
-        //B. If the name is not correct, it will pop out a dialog to display
-        //      the requirements, ask users to re-input the value, stay at the previous page and return -1,
-        //C. else return integer hhmm;
-        //D. Requirement:
-        //  1)not empty
-        //  2)the time has exactly format hh:mm
-        int result = -1;
-        if (startTime == "hh:mm") {
-            alertmessage("Start time cannot be empty");
-        } else {
-
-            String[] str = startTime.split(":");
-            int hour = Integer.parseInt(str[0]);
-            int minute = Integer.parseInt(str[1]);
-            result = hour * 100 + minute;
-        }
-        return result;
-
-    }
-
-    public int getEndTime(String startTime, String endTime) {
-        //A. This function is to check whether the date input is vaild
-        //      and will a boolean value
-        //B. If the name is not correct, it will pop out a dialog to display
-        //      the requirements, ask users to re-input the value, stay at the previous page and return -1,
-        //C. else return integer hhmm;
-        //D. Requirement:
-        //  1)not empty
-        //  2)the time has exactly format hh:mm
-        // 3)the endTime should be some time after startTime
-        int result = -1;
-        if (endTime == "hh:mm")
-            alertmessage("End time cannot be empty");
-        else if (endTime.compareTo(startTime) < 0)
-            alertmessage("End time cannot be earlier than starting time");
-        else {
-            String[] str = endTime.split(":");
-            int hour = Integer.parseInt(str[0]);
-            int minute = Integer.parseInt(str[1]);
-            result = hour * 100 + minute;
-        }
-        return result;
-
-    }
 
     private void alertmessage(String message) {
         Toast toast = Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG);
@@ -366,6 +280,45 @@ public class CreatePrivateEvent extends AppCompatActivity {
     }
 
 
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        client.connect();
+        Action viewAction = Action.newAction(
+                Action.TYPE_VIEW, // TODO: choose an action type.
+                "CreatePrivateEvent Page", // TODO: Define a title for the content shown.
+                // TODO: If you have web page content that matches this app activity's content,
+                // make sure this auto-generated web page URL is correct.
+                // Otherwise, set the URL to null.
+                Uri.parse("http://host/path"),
+                // TODO: Make sure this auto-generated app deep link URI is correct.
+                Uri.parse("android-app://com.ac.behrendapp.whattodo/http/host/path")
+        );
+        AppIndex.AppIndexApi.start(client, viewAction);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        Action viewAction = Action.newAction(
+                Action.TYPE_VIEW, // TODO: choose an action type.
+                "CreatePrivateEvent Page", // TODO: Define a title for the content shown.
+                // TODO: If you have web page content that matches this app activity's content,
+                // make sure this auto-generated web page URL is correct.
+                // Otherwise, set the URL to null.
+                Uri.parse("http://host/path"),
+                // TODO: Make sure this auto-generated app deep link URI is correct.
+                Uri.parse("android-app://com.ac.behrendapp.whattodo/http/host/path")
+        );
+        AppIndex.AppIndexApi.end(client, viewAction);
+        client.disconnect();
+    }
 }
 
 

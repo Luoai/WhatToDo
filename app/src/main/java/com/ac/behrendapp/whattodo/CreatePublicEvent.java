@@ -218,7 +218,8 @@ public class CreatePublicEvent extends AppCompatActivity {
         if (startTimeInt != -1) {
 
             startMin = startTimeInt % 100;
-            startHour = startTimeInt / 100;
+            startTimeInt /= 100;
+            startHour = startTimeInt % 100;
 
             e.setEStartTime(startTime);
             e.setEStartHour(startHour);
@@ -235,7 +236,8 @@ public class CreatePublicEvent extends AppCompatActivity {
         int endTimeInt = getEndTime(startTime,endTime);
         if (endTimeInt != -1) {
             endMin = endTimeInt % 100;
-            endHour = endTimeInt / 100;
+            endTimeInt /= 100;
+            endHour = endTimeInt % 100;
 
             e.setEEndTime(endTime);
             e.setEEndHour(endHour);
@@ -309,7 +311,7 @@ public class CreatePublicEvent extends AppCompatActivity {
             String[] str = startTime.split(":");
             int hour = Integer.parseInt(str[0]);
             int minute = Integer.parseInt(str[1]);
-            result = hour * 100 + minute;
+            result = 10000 + hour * 100 + minute;
         }
         return result;
 
@@ -334,7 +336,7 @@ public class CreatePublicEvent extends AppCompatActivity {
             String[] str = endTime.split(":");
             int hour = Integer.parseInt(str[0]);
             int minute = Integer.parseInt(str[1]);
-            result = hour * 100 + minute;
+            result = 10000 + hour * 100 + minute;
         }
         return result;
 
@@ -379,26 +381,6 @@ public class CreatePublicEvent extends AppCompatActivity {
         locSpinner.setAdapter(locSpinnerAdapter);
     }
 
-
-    // TBC
-    public void addListenerToLocSpinner() {
-        //https://www.youtube.com/watch?v=OY8dRInKaqY
-        final String loc;
-        locSpinner = (Spinner) findViewById(R.id.Loc_Spinner);
-        locSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                String itemSelectedInSpinner =
-                        parent.getItemAtPosition(position).toString();
-                //TextView test=(TextView)findViewById(R.id.test);
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
-    }
 
 
     @Override

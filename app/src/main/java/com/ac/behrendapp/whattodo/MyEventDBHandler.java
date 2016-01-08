@@ -11,7 +11,7 @@ import java.io.File;
 import java.security.Key;
 
 
-// hahahaha
+
 public class MyEventDBHandler extends SQLiteOpenHelper {
 
     private static final int DATABASE_VERSION = 1;
@@ -119,7 +119,7 @@ public class MyEventDBHandler extends SQLiteOpenHelper {
         //Cursor point to a location in your results
         //Cursor c = db.rawQuery(query, null);
         String[] columns = {COLUMN_ID, COLUMN_ENAME, COLUMN_ELOC, COLUMN_EDATE};
-        Cursor c = db.query(TABLE_EVENTS, columns, null, null, null, null, COLUMN_EDAY + " DESC");
+        Cursor c = db.query(TABLE_EVENTS, columns, null, null, null, null, COLUMN_EDATE + " ASC, " + COLUMN_ESTARTTIME + " ASC");
         //Move to first row in your result;
         c.moveToFirst();
 

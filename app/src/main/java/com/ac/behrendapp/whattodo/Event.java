@@ -58,10 +58,46 @@ public class Event {
         return eDate;
     }
 
+    public void setSplitedDate(String date) {
+        // the date String has to be exactly "mm/dd/yyyy"
+        String str[] = date.split("/");
+        int day = Integer.parseInt(str[1]);
+        int month = Integer.parseInt(str[0]);
+        int year = Integer.parseInt(str[2]);
+        eDay = day;
+        eMonth = month;
+        eYear = year;
+    }
     public String getFormattedDate() {
         return String.valueOf(eMonth) + "/" +
                 String.valueOf(eDay) + "/" +
                 String.valueOf(eYear);
+    }
+
+    public void setSplitEndTime(String time) {
+        //The time has to have exact format "hh:mm"
+        String[] str = time.split(":");
+        int hour = Integer.parseInt(str[0]);
+        int minute = Integer.parseInt(str[1]);
+        eEndHour = hour;
+        eEndMin = minute;
+    }
+
+    public String getFormatedEndTime() {
+        return String.valueOf(eEndHour + ":" + eEndMin);
+    }
+
+    public void setSplitStartTime(String time) {
+        //The time has to have exact format "hh:mm"
+        String[] str = time.split(":");
+        int hour = Integer.parseInt(str[0]);
+        int minute = Integer.parseInt(str[1]);
+        eStartHour = hour;
+        eStartMin = minute;
+    }
+
+    public String getFormatedStartTime() {
+        return String.valueOf(eStartHour + ":" + eStartMin);
     }
 
     public void setDescription(String des){description=des;}
