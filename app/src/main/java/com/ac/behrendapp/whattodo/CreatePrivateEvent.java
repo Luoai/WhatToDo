@@ -79,7 +79,6 @@ public class CreatePrivateEvent extends AppCompatActivity {
     public void onResetClick(View v) {
         if (v.getId() == R.id.resetButton) {
 
-            //TODO
 
         }
     }
@@ -87,9 +86,6 @@ public class CreatePrivateEvent extends AppCompatActivity {
     //Jump back to the previous page after clicking CANCEL button
     public void onCancelClick(View v) {
         if (v.getId() == R.id.cancelButton) {
-
-            //TODO
-
         }
     }
 
@@ -171,18 +167,6 @@ public class CreatePrivateEvent extends AppCompatActivity {
             MyEventDBHandler eventDBHandler = new MyEventDBHandler(this, null, null, 1);
             eventDBHandler.addEvent(newEvent);
 
-/*
-            textView = (TextView) findViewById(R.id.textView);
-
-            textView.setText(newEvent.getEDate() + "\n" +
-                    newEvent.getEYear() + " " +
-                    newEvent.getEMonth() + " " +
-                    newEvent.getEDay() + "\n" +
-                    newEvent.getEEndHour() + " " +
-                    newEvent.getEEndMin() + "\n" +
-                    newEvent.getEStartHour() + " " +
-                    newEvent.getEStartMin());
-*/
 
         }
 
@@ -203,6 +187,7 @@ public class CreatePrivateEvent extends AppCompatActivity {
             e = null;
             return e;
         }
+
 
         //get location
         String loc = locET.getText().toString();

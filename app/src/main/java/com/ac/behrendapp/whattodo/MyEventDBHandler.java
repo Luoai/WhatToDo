@@ -87,7 +87,7 @@ public class MyEventDBHandler extends SQLiteOpenHelper {
         values.put(COLUMN_EDAY,event.getEDay());
         values.put(COLUMN_EMONTH,event.getEMonth());
         values.put(COLUMN_EYEAR,event.getEYear());
-        values.put(COLUMN_ESTARTTIME,event.getEStartTime());
+        values.put(COLUMN_ESTARTTIME, event.getFormattedStartTime());
         values.put(COLUMN_ESTARTHOUR,event.getEStartHour());
         values.put(COLUMN_ESTARTMIN,event.getEStartMin());
         values.put(COLUMN_EENDHOUR,event.getEEndHour());

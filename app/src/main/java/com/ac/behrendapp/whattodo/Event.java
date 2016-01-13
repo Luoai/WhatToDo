@@ -50,14 +50,12 @@ public class Event {
     public void setEEndTime(String time){eEndTime=time;}
     public String getEEndTime(){return eEndTime;}
 
-    public void setEDate(int time) {
-        eDate = time;
+    public void setEDate(int date) {
+        eDate = date;
     }
-
     public int getEDate() {
-        return eDate;
+        return eYear * 10000 + eMonth * 100 + eDay;
     }
-
     public void setSplitedDate(String date) {
         // the date String has to be exactly "mm/dd/yyyy"
         String str[] = date.split("/");
@@ -83,7 +81,7 @@ public class Event {
         eEndMin = minute;
     }
 
-    public String getFormatedEndTime() {
+    public String getFormattedEndTime() {
         return String.valueOf(eEndHour + ":" + eEndMin);
     }
 
@@ -96,7 +94,7 @@ public class Event {
         eStartMin = minute;
     }
 
-    public String getFormatedStartTime() {
+    public String getFormattedStartTime() {
         return String.valueOf(eStartHour + ":" + eStartMin);
     }
 
