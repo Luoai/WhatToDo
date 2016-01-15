@@ -30,7 +30,6 @@
         style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/nextButton"
         android:id="@+id/nextButton"
         android:onClick="onNextClick"
         android:layout_alignParentBottom="true"

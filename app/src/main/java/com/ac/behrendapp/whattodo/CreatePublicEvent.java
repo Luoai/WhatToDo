@@ -12,6 +12,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -30,6 +31,7 @@ public class CreatePublicEvent extends AppCompatActivity {
     private Spinner locSpinner;
     private EditText nameET, desET;
     private TextView dateTextView, startTimeTextView, endTimeTextView,textView, title;
+    private Button button;
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
      * See https://g.co/AppIndexing/AndroidStudio for more information.
@@ -63,13 +65,18 @@ public class CreatePublicEvent extends AppCompatActivity {
         desET = (EditText) findViewById(R.id.des);
         dateTextView = (TextView) findViewById(R.id.date);
         title = (TextView) findViewById(R.id.title_CreateNewEvent);
+        button = (Button) findViewById(R.id.nextButton);
 
         //get intent information from main activity and set up the title
         Intent intent = getIntent();
-        if (intent.getFlags() == 1)
+        if (intent.getFlags() == 1) {
             title.setText("Create New Public Event");
-        else if(intent.getFlags() == 2)
+            button.setText("Next");
+        }
+        else if(intent.getFlags() == 2) {
             title.setText("Create New Private Schedule");
+            button.setText("Finish");
+        }
     }
 
     //This function is to pop out a dialog to pick date when click on the text field of date
@@ -143,6 +150,16 @@ public class CreatePublicEvent extends AppCompatActivity {
     public void onNextClick(View v) {
 
         if (v.getId() == R.id.nextButton) {
+
+            //the public event, this one should go to some other page that I will do it later
+            if (button.getText() == "Next"){
+
+            }
+
+            //the private schedule
+            else{
+
+            }
 
             Event newEvent = new Event();
             newEvent = getEvent();
