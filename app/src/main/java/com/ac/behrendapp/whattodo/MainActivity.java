@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
 
                                 switch (selected) {
 
-                                    //Existing Event
+                                    //Existing Event list
                                     case 0:
                                         Intent intent0 = new Intent(MainActivity.this, EventList.class);
                                         startActivity(intent0);

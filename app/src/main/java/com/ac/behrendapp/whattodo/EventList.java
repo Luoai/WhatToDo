@@ -27,7 +27,6 @@ public class EventList extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.event_list);
 
-        Intent intent = getIntent();
         displayPrivateEvents();
 
 
