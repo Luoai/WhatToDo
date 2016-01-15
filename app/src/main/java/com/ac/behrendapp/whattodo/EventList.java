@@ -1,5 +1,6 @@
 package com.ac.behrendapp.whattodo;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -26,6 +27,7 @@ public class EventList extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.event_list);
 
+        Intent intent = getIntent();
         displayPrivateEvents();
 
 

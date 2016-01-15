@@ -49,6 +49,8 @@ public class MainActivity extends AppCompatActivity {
 
                                     //Existing Event
                                     case 0:
+                                        Intent intent0 = new Intent(MainActivity.this, EventList.class);
+                                        startActivity(intent0);
                                         break;
 
                                     //Creating Public Event
