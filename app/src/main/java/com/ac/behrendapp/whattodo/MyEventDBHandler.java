@@ -109,6 +109,37 @@ public class MyEventDBHandler extends SQLiteOpenHelper {
                 "\"");
     }
 
+    //
+    public void searchEventbyName(String eventName) {
+
+    }
+
+    // get all event from db as an event array
+    public Event[] getAllEvents() {
+        Event[] eventList = {};
+
+        SQLiteDatabase db = getWritableDatabase();
+        String[] columns = {COLUMN_ID, COLUMN_ENAME, COLUMN_ELOC, COLUMN_EDATE, COLUMN_ESTARTTIME, COLUMN_EENDTIME, COLUMN_DESCRITION};
+        Cursor cursor = db.query(TABLE_EVENTS, columns, null, null, null, null, COLUMN_EDATE + " ASC, " + COLUMN_ESTARTTIME + " ASC");
+        cursor.moveToFirst();
+
+        int cnt = 0;
+        do {
+            if (cursor.getString(1) != null) {
+                eventList[cnt].setEName(cursor.getString(1));
+                eventList[cnt].setELoc(cursor.getString(2));
+                eventList[cnt].setSplitedDate(cursor.getString(3));
+                eventList[cnt].setSplitStartTime(cursor.getString(4));
+                eventList[cnt].setSplitEndTime(cursor.getString(5));
+                eventList[cnt].setDescription(cursor.getString(6));
+                cnt++;
+            }
+        } while (cursor.moveToNext());
+        db.close();
+        return eventList;
+    }
+
+
     //Print out the databaase as a string
     public String databaseToString(){
         String dbString = "";
